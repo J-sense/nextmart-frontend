@@ -1,5 +1,5 @@
 import Register from "@/src/components/modules/auth/Register";
-import React from "react";
+
 
 export default function RegisterPage() {
   return (

@@ -3,17 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/ui/FormInput";
 import Logo from "@/components/ui/logo";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { registerValidation } from "./registerValidation";
+import { userRegister } from "@/src/services/auth";
+import { toast } from "sonner";
 
 export default function Register() {
   const form = useForm({
-    resolver: zodResolver(registerValidation)
+    resolver: zodResolver(registerValidation),
   });
-  const onSubmit:SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      console.log(data);
+      const res = await userRegister(data);
+      if (res.success) {
+        toast.success(res?.data?.message);
+      } else {
+        toast.error(res?.data?.message);
+      }
+      console.log(res);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
