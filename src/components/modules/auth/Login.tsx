@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/ui/FormInput";
 import Logo from "@/components/ui/logo";
+import { userLogin } from "@/src/services/auth";
 import { LucideFacebook } from "lucide-react";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function Login() {
   const form = useForm();
@@ -14,10 +16,17 @@ export default function Login() {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = async (data: any) => {
-    return setTimeout(() => {
-      console.log("Hello after 2 seconds", data);
-    }, 2000);
+  const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
+    try {
+      const response = await userLogin(data);
+      if (response.success) {
+        toast.success(response?.message);
+      }else{
+        toast.error(response?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

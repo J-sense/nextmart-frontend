@@ -17,15 +17,13 @@ export default function Register() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      console.log(data);
       const res = await userRegister(data);
+      console.log(res);
       if (res.success) {
-        toast.success(res?.data?.message);
+        toast.success(res?.message);
       } else {
-        toast.error(res?.data?.message);
+        toast.error(res?.message);
       }
-      console.log(res);
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -79,14 +77,6 @@ export default function Register() {
                 control={form.control}
                 name="password"
                 label="Password"
-                type="password"
-                placeholder="••••••••"
-              />
-
-              <FormInput
-                control={form.control}
-                name="confirmPassword"
-                label="Confirm Password"
                 type="password"
                 placeholder="••••••••"
               />

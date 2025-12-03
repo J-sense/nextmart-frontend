@@ -1,6 +1,7 @@
 import Navbar from "@/src/components/shared/Navbar";
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
+
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
 export default function CommonLayout({
   children,
 }: {
