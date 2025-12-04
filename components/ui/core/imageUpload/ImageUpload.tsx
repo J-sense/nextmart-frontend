@@ -2,8 +2,9 @@ import React from "react";
 import { Input } from "../../input";
 import Image from "next/image";
 
-export default function ImageUpload() {
-  const [imageFile, setImageFile] = React.useState<File[] | []>([]);
+export default function ImageUpload({ imageFile, setImageFile }) {
+
+  console.log(imageFile);
   const [imagePreview, setImagePreview] = React.useState<string[]>([]);
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files![0];

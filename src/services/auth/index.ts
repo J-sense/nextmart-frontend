@@ -44,7 +44,7 @@ export const logOut = async () => {
 };
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
-  if(!accessToken) return null;
+ 
   let decodeUser = null;
   if (accessToken) {
     decodeUser = await jwtDecode(accessToken);

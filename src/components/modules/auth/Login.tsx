@@ -7,21 +7,29 @@ import Logo from "@/components/ui/logo";
 import { userLogin } from "@/src/services/auth";
 import { LucideFacebook } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useContext } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { userContext } from "../../context/UserContext";
 
 export default function Login() {
   const form = useForm();
   const {
     formState: { isSubmitting },
   } = form;
-
+  const { isLoading } = useContext(userContext);
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirectPath");
+  const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
       const response = await userLogin(data);
       if (response.success) {
         toast.success(response?.message);
-      }else{
+
+        router.push("/");
+      } else {
         toast.error(response?.message);
       }
     } catch (error) {

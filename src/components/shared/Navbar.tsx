@@ -15,15 +15,17 @@ import { Button } from "@/components/ui/button";
 import { Profile } from "./profile";
 import { logOut } from "@/src/services/auth";
 
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const { user, setIsLoading } = useUser();
-  console.log(user);
+
   const handleLogout = () => {
     logOut();
     setIsLoading(true);
   };
+
   return (
     <nav className="border-b border-gray-200">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-5">
@@ -108,7 +110,7 @@ export default function Navbar() {
                 </div>
               </>
             ) : (
-              <Link href={"/register"}>
+              <Link href={"/login"}>
                 <button className="hidden md:block px-6 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors border rounded-full">
                   Sign In
                 </button>
