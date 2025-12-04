@@ -10,11 +10,20 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/ui/logo";
+import { useUser } from "../context/UserContext";
+import { Button } from "@/components/ui/button";
+import { Profile } from "./profile";
+import { logOut } from "@/src/services/auth";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-
+  const { user, setIsLoading } = useUser();
+  console.log(user);
+  const handleLogout = () => {
+    logOut();
+    setIsLoading(true);
+  };
   return (
     <nav className="border-b border-gray-200">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-5">
@@ -24,7 +33,6 @@ export default function Navbar() {
             <Logo />
           </div>
 
-          {/* Center: Category + Search */}
           <div className="hidden md:flex flex-1 justify-center items-center space-x-6">
             {/* Category Dropdown */}
             <div className="relative">
@@ -88,11 +96,24 @@ export default function Navbar() {
             <button className="hidden md:block border rounded-full p-3 text-gray-700 hover:text-gray-900 transition-colors">
               <ShoppingCart className="w-5 h-5" />
             </button>
-            <Link href={"/register"}>
-              <button className="hidden md:block px-6 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors border rounded-full">
-                Sign In
-              </button>
-            </Link>
+            {user ? (
+              <>
+                <Link href="/create-shop">
+                  <Button className=" rounded-full cursor-pointer bg-white text-black border hover:bg-slate-100">
+                    create shop
+                  </Button>
+                </Link>
+                <div>
+                  <Profile handleLogout={handleLogout} />
+                </div>
+              </>
+            ) : (
+              <Link href={"/register"}>
+                <button className="hidden md:block px-6 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors border rounded-full">
+                  Sign In
+                </button>
+              </Link>
+            )}
 
             {/* Mobile Menu Button */}
             <button

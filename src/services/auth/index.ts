@@ -39,8 +39,12 @@ export const userLogin = async (data: any) => {
     console.error(error);
   }
 };
+export const logOut = async () => {
+  (await cookies()).delete("accessToken");
+};
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
+  if(!accessToken) return null;
   let decodeUser = null;
   if (accessToken) {
     decodeUser = await jwtDecode(accessToken);

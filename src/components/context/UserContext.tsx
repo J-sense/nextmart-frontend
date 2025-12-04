@@ -21,7 +21,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
     handleUser();
-  }, []);
+  }, [isLoading]);
 
   return (
     <userContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
