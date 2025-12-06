@@ -34,5 +34,5 @@ export async function proxy(request: NextRequest) {
   return NextResponse.redirect(new URL(`/`, request.url));
 }
 export const config = {
-  matcher: [ "/user", "/user/:page", "/admin", "/admin/:page","/create-shop"],
+  matcher: [ "/user", "/user/:page","/create-shop"],
 };

@@ -14,16 +14,21 @@ import { useUser } from "../context/UserContext";
 import { Button } from "@/components/ui/button";
 import { Profile } from "./profile";
 import { logOut } from "@/src/services/auth";
-
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/src/constants";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const { user, setIsLoading } = useUser();
-
+  const pathname = usePathname();
+  const router = useRouter();
   const handleLogout = () => {
     logOut();
     setIsLoading(true);
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/login");
+    }
   };
 
   return (

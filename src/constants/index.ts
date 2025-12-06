@@ -1,0 +1,7 @@
+export const protectedRoutes = [
+  "/user",
+  "/user/:page",
+  "/admin",
+  "/admin/:page",
+  "/create-shop",
+];

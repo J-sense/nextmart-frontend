@@ -18,7 +18,7 @@ export default function Login() {
   const {
     formState: { isSubmitting },
   } = form;
-  const { isLoading } = useContext(userContext);
+  const { setIsLoading } = useContext(userContext);
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get("redirectPath");
   const router = useRouter();
@@ -27,8 +27,12 @@ export default function Login() {
       const response = await userLogin(data);
       if (response.success) {
         toast.success(response?.message);
-
-        router.push("/");
+        setIsLoading(true);
+        if (redirectPath) {
+          router.push(redirectPath);
+        } else {
+          router.push("/");
+        }
       } else {
         toast.error(response?.message);
       }
