@@ -8,3 +8,10 @@ export type UserType = {
   role: "user" | "admin";
   userId: string;
 };
+import { LucideIcon } from 'lucide-react';
+
+export type MenuItem = {
+  icon: LucideIcon;
+  label: string;
+  href: string;
+};

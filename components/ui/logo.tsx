@@ -14,13 +14,12 @@ export default function Logo() {
           S
         </span>
 
-        {/* Sparkle effect */}
         <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
       </div>
 
       {/* Brand Name */}
       <div className="relative hidden sm:block">
-        <span className="text-2xl font-black bg-linear-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-300">
+        <span className="text-xl font-black bg-linear-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-300">
           ShopHub
         </span>
 
