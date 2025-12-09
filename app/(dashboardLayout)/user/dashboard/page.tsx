@@ -1,19 +1,47 @@
-import React from "react";
+import { StatsCard } from "@/components/ui/core/imageUpload/states.card";
+import { DollarSign, ShoppingCart, Users } from "lucide-react";
 
 const page = () => {
   return (
-    <div>
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="bg-muted/50 aspect-video rounded-xl" />
-          <div className="bg-muted/50 aspect-video rounded-xl" />
-          <div className="bg-muted/50 aspect-video rounded-xl" />
-        </div>
-        <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" />
-      </div>
-      <h3>
-      Dashboard
-      </h3>
+    <div className="grid grid-cols-4  gap-3 px-6">
+      <StatsCard
+        title="Total Revenue"
+        value="$45,231.89"
+        description="+20.1% from last month"
+        icon={DollarSign}
+        iconColor="text-green-600"
+        iconBgColor="bg-green-100"
+        trend={{ value: 20.1, isPositive: true }}
+      />
+
+      <StatsCard
+        title="Total Users"
+        value="2,350"
+        description="+180 new users this week"
+        icon={Users}
+        iconColor="text-blue-600"
+        iconBgColor="bg-blue-100"
+        trend={{ value: 15.3, isPositive: true }}
+      />
+
+      <StatsCard
+        title="Orders"
+        value="1,234"
+        description="-4.3% from last month"
+        icon={ShoppingCart}
+        iconColor="text-purple-600"
+        iconBgColor="bg-purple-100"
+        trend={{ value: 4.3, isPositive: false }}
+      />
+      <StatsCard
+        title="Orders"
+        value="1,234"
+        description="-4.3% from last month"
+        icon={ShoppingCart}
+        iconColor="text-purple-600"
+        iconBgColor="bg-purple-100"
+        trend={{ value: 4.3, isPositive: false }}
+      />
     </div>
   );
 };

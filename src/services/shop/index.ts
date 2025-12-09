@@ -1,7 +1,7 @@
 "use server";
 
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-
 
 export const shopCreate = async (data: FormData) => {
   try {
@@ -12,8 +12,100 @@ export const shopCreate = async (data: FormData) => {
       },
       body: data,
     });
+
     return await response.json();
   } catch (error) {
-   console.error(error);
+    console.error(error);
+  }
+};
+
+// CREATE CATEGORY
+export const createCategory = async (data: FormData) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        body: data,
+      }
+    );
+
+    // ✅ correct revalidation for categories list
+    revalidatePath("categories");
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// GET CATEGORY (cache + tag)
+export const getCategories = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        next: { tags: ["categories"] },
+      }
+    );
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// DELETE CATEGORY
+export const deleteCategory = async (categoryId: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/category/${categoryId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
+
+    revalidateTag(["categories",]);
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const getBrands = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/brand`, {
+      method: "GET",
+      headers: {
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createBrand = async (data: FormData) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/brand`, {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: (await cookies()).get("accessToken")!.value,
+      },
+    });
+    return response.json();
+  } catch (error) {
+    console.error(error);
   }
 };
