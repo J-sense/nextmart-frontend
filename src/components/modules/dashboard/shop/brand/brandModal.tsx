@@ -1,18 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import ImageUpload from "@/components/ui/core/imageUpload/ImageUpload";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/ui/FormInput";
-import { createBrand, createCategory } from "@/src/services/shop";
+import { createBrand } from "@/src/services/shop";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
@@ -20,7 +21,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { brandSchema } from "./brandModalValidation";
-import ImageUpload from "@/components/ui/core/imageUpload/ImageUpload";
 
 type CategoryFormData = z.infer<typeof brandSchema>;
 

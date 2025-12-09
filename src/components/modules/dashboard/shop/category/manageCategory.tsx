@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { deleteCategory, getCategories } from "@/src/services/shop";
-import { CategoryModal } from "./CategoryModal";
-import { DataTable } from "@/components/ui/core/imageUpload/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
-import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/core/imageUpload/data-table";
+import { deleteCategory } from "@/src/services/shop";
+import { ColumnDef } from "@tanstack/react-table";
+import { Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
+import { CategoryModal } from "./CategoryModal";
 import { DeleteConfirmDialog } from "./deleteCategorymodal";
 
 interface Category {

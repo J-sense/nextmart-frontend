@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { deleteCategory, getCategories } from "@/src/services/shop";
+import { deleteBrand, deleteCategory, getCategories } from "@/src/services/shop";
 
 import { DataTable } from "@/components/ui/core/imageUpload/data-table";
 import { ColumnDef } from "@tanstack/react-table";
@@ -10,30 +10,29 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { BrandModal } from "./brandModal";
+import { DeleteConfirmDialog } from "../category/deleteCategorymodal";
 
-interface Category {
+export type Brand = {
   _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  icon: string;
-  isActive: boolean;
-  parent: string | null;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
   createdBy: string;
-  createdAt: string;
-  updatedAt: string;
-}
-export const ManageBrand = ({ categoryData }: { categoryData: Category[] }) => {
+  isActive: boolean;
+  logo: string;
+  name: string;
+};
+
+export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
   console.log(categoryData);
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const columns: ColumnDef<Category>[] = [
+  const columns: ColumnDef<Brand>[] = [
     {
       header: "Name",
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
           <Image
-            src={row.original.icon || "/fallback-icon.png"}
+            src={row.original.logo || "/fallback-icon.png"}
             width={40}
             height={40}
             alt={row.original.name}
@@ -42,11 +41,6 @@ export const ManageBrand = ({ categoryData }: { categoryData: Category[] }) => {
           <span className="font-medium">{row.original.name}</span>
         </div>
       ),
-    },
-
-    {
-      accessorKey: "description",
-      header: "Description",
     },
 
     {
@@ -82,7 +76,7 @@ export const ManageBrand = ({ categoryData }: { categoryData: Category[] }) => {
         const handleDelete = async () => {
           setIsDeleting(true);
           try {
-            const res = await deleteCategory(category._id);
+            const res = await deleteBrand(category._id);
 
             if (res.success) {
               toast.success(`"${category.name}" deleted successfully`);
@@ -110,14 +104,14 @@ export const ManageBrand = ({ categoryData }: { categoryData: Category[] }) => {
               <span className="sr-only">Delete {category.name}</span>
             </Button>
 
-            {/* <DeleteConfirmDialog
+            <DeleteConfirmDialog
               open={open}
               onOpenChange={setOpen}
               title={`Delete "${category.name}"?`}
               description="This category and all its data will be permanently removed."
               onConfirm={handleDelete}
               loading={isDeleting}
-            /> */}
+            />
           </>
         );
       },
@@ -126,14 +120,13 @@ export const ManageBrand = ({ categoryData }: { categoryData: Category[] }) => {
 
   return (
     <>
-      <div className="flex justify-between ">
+      <div className="flex justify-between p-6">
         <h2 className="text-xl font-semibold">Manage Brand</h2>
-        {/* <CategoryModal /> */}
         <BrandModal />
       </div>
-      {/* <div className="mt-6">
+      <div className="px-6 py-4">
         <DataTable columns={columns} data={categoryData} />
-      </div> */}
+      </div>
     </>
   );
 };

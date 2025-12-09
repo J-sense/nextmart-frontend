@@ -5,10 +5,10 @@ import React from "react";
 const Brands =async () => {
   const { data } = await getBrands();
   console.log(data)
-  console.log(data);
+
   return (
     <div>
-      <ManageBrand />
+      <ManageBrand categoryData={data}/>
     </div>
   );
 };

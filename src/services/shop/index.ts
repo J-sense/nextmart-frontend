@@ -75,7 +75,7 @@ export const deleteCategory = async (categoryId: string) => {
       }
     );
 
-    revalidateTag(["categories",]);
+    revalidateTag(["categories"]);
 
     return await response.json();
   } catch (error) {
@@ -85,6 +85,7 @@ export const deleteCategory = async (categoryId: string) => {
 export const getBrands = async () => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/brand`, {
+      next: { tags: ["brands"] },
       method: "GET",
       headers: {
         Authorization: (await cookies()).get("accessToken")!.value,
@@ -104,8 +105,26 @@ export const createBrand = async (data: FormData) => {
         Authorization: (await cookies()).get("accessToken")!.value,
       },
     });
+    revalidateTag(["brands"]);
     return response.json();
   } catch (error) {
     console.error(error);
+  }
+};
+export const deleteBrand = async (brandId: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/brand/${brandId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
+    revalidateTag(["brands"]);
+    return response.json();
+  } catch (error) {
+    console.log(error);
   }
 };
