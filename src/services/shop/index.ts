@@ -121,3 +121,22 @@ export const deleteBrand = async (brandId: string) => {
     console.log(error);
   }
 };
+
+export const createProduct = async (data: FormData) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/product`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        body: data,
+      }
+    );
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};

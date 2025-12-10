@@ -33,7 +33,7 @@ import { useRouter } from "next/navigation";
 
 import Logo from "@/components/ui/logo";
 
-import { getBrands, getCategories } from "@/src/services/shop";
+import { createProduct, getBrands, getCategories } from "@/src/services/shop";
 import { IBrand } from "@/src/types/brand";
 import { ICategory } from "@/src/types/category";
 import Image from "next/image";
@@ -125,7 +125,7 @@ export default function AddProductsForm() {
     setImageFiles((prev) => [...prev, ...newFiles]);
     setImagePreviews((prev) => [...prev, ...previews]);
 
-    // Reset input so same file can be selected again
+   
     e.target.value = "";
   };
 
@@ -135,7 +135,6 @@ export default function AddProductsForm() {
     setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Form submit
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (imageFiles.length === 0) {
       toast.error("Please upload at least one product image");
@@ -169,19 +168,17 @@ export default function AddProductsForm() {
     const formData = new FormData();
     formData.append("data", JSON.stringify(payload));
     imageFiles.forEach((file) => formData.append("images", file));
-
-    // try {
-    //   const res = await addProduct(formData);
-    //   if (res?.success) {
-    //     toast.success(res.message || "Product added successfully!");
-    //     router.push("/user/shop/products");
-    //   } else {
-    //     toast.error(res?.message || "Failed to add product");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err);
-    //   toast.error(err?.message || "Something went wrong");
-    // }
+    console.log(payload);
+    
+    try {
+      const res = await createProduct(formData);
+      console.log(res)
+      if (res.success) {
+        toast.success(res?.message || "Product added successfully!");
+      } else {
+        toast.error(res?.message );
+      }
+    } catch (error) {}
   };
 
   return (
@@ -489,7 +486,11 @@ export default function AddProductsForm() {
                           <FormItem>
                             <FormLabel>Value</FormLabel>
                             <FormControl>
-                              <Input placeholder="e.g. 20 hours" {...field} className="py-8"/>
+                              <Input
+                                placeholder="e.g. 20 hours"
+                                {...field}
+                                className="py-8"
+                              />
                             </FormControl>
                           </FormItem>
                         )}
