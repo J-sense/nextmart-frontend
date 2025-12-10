@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Input } from "../../input";
 import Image from "next/image";
 
-export default function ImageUpload({ imageFile, setImageFile }) {
+export default function ImageUpload({ imageFile, setImageFile }:any) {
 
   console.log(imageFile);
   const [imagePreview, setImagePreview] = React.useState<string[]>([]);
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files![0];
-    setImageFile((prev) => [...prev, files]);
+    setImageFile((prev:any) => [...prev, files]);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview((prev) => [...prev, reader.result as string]);
@@ -18,7 +19,7 @@ export default function ImageUpload({ imageFile, setImageFile }) {
   };
   const handleRemoveImage = (index: number) => {
     setImagePreview((prev) => prev.filter((_, i) => i !== index));
-    setImageFile((prev) => prev.filter((_, i) => i !== index));
+    setImageFile((prev:any) => prev.filter((_:any, i:any) => i !== index));
   };
 
   return (

@@ -1,13 +1,15 @@
 import ManageCategory from "@/src/components/modules/dashboard/shop/category/manageCategory";
 import { getCategories } from "@/src/services/shop";
-import React from "react";
+import React, { Suspense } from "react";
 
-const Category = async() => {
+const Category = async () => {
   const { data: categoryData } = await getCategories();
 
   return (
     <div className="px-5 mt-3">
-      <ManageCategory categoryData={categoryData}/>
+      <Suspense fallback={<div>Loading...</div>}>
+      <ManageCategory categoryData={categoryData} />
+      </Suspense>
     </div>
   );
 };

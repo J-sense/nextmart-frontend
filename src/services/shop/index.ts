@@ -46,14 +46,7 @@ export const createCategory = async (data: FormData) => {
 export const getCategories = async () => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: (await cookies()).get("accessToken")!.value,
-        },
-        next: { tags: ["categories"] },
-      }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/category`
     );
 
     return await response.json();

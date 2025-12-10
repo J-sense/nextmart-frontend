@@ -1,13 +1,13 @@
 import { getCurrentUser } from "@/src/services/auth";
 import { UserType } from "@/src/types";
-import { createContext, useContext, useEffect, useState } from "react";
-type contextType = {
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+interface IUserProviderValues {
   user: UserType | null;
-  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export const userContext = createContext<contextType | undefined>(undefined);
+  setUser: (user: UserType | null) => void;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+}
+export const userContext = createContext<IUserProviderValues | undefined>(undefined);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);

@@ -18,7 +18,8 @@ export default function Login() {
   const {
     formState: { isSubmitting },
   } = form;
-  const { setIsLoading } = useContext(userContext);
+  const context = useContext(userContext);
+  const { setIsLoading } = context!;
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get("redirectPath");
   const router = useRouter();
