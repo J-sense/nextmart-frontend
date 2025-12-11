@@ -41,7 +41,7 @@ const data = {
       icon: SquareTerminal,
       items: [
         { title: "Manage Categories", url: "/user/shop/category" },
-        { title: "Manage Products", url: "/user/shop/products" },
+        { title: "Manage Products", url: "/user/shop/product" },
         { title: "Manage Brands", url: "/user/shop/brands" },
       ],
     },

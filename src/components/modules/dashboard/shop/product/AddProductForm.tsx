@@ -185,7 +185,7 @@ export default function AddProductsForm() {
     <div className="max-w-full mx-auto p-6">
       <div className="border-2 border-gray-200 rounded-2xl bg-white shadow-lg overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r  p-6 text-white">
+        <div className="bg-linear-to-r  p-6 text-white">
           <div className="flex items-center gap-4">
             <Logo />
             <h1 className="text-2xl font-bold">Add New Product</h1>

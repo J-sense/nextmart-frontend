@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { cacheTag, revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const shopCreate = async (data: FormData) => {
@@ -68,7 +68,7 @@ export const deleteCategory = async (categoryId: string) => {
       }
     );
 
-    revalidateTag(["categories"]);
+    revalidateTag(["categories,", "max"]);
 
     return await response.json();
   } catch (error) {
@@ -98,7 +98,7 @@ export const createBrand = async (data: FormData) => {
         Authorization: (await cookies()).get("accessToken")!.value,
       },
     });
-    revalidateTag(["brands"]);
+    revalidateTag("brands", "max");
     return response.json();
   } catch (error) {
     console.error(error);
@@ -115,7 +115,7 @@ export const deleteBrand = async (brandId: string) => {
         },
       }
     );
-    revalidateTag(["brands"]);
+    revalidateTag(["brands", "max"]);
     return response.json();
   } catch (error) {
     console.log(error);
@@ -138,5 +138,15 @@ export const createProduct = async (data: FormData) => {
     return response.json();
   } catch (error) {
     console.error(error);
+  }
+};
+export const getProducts = async () => {
+  "use cache";
+  cacheTag("products");
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/product`);
+    return response.json();
+  } catch (error) {
+    console.log(error);
   }
 };
