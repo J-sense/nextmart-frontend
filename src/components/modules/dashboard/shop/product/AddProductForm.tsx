@@ -3,44 +3,43 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
+import { Plus, Upload, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
-  useForm,
-  useFieldArray,
-  SubmitHandler,
-  FieldValues,
+    FieldValues,
+    SubmitHandler,
+    useFieldArray,
+    useForm,
 } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { Plus, X, Upload, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 import Logo from "@/components/ui/logo";
 
+import FormInput from "@/components/ui/FormInput";
 import { createProduct, getBrands, getCategories } from "@/src/services/shop";
 import { IBrand } from "@/src/types/brand";
 import { ICategory } from "@/src/types/category";
 import Image from "next/image";
-import FormInput from "@/components/ui/FormInput";
 
 export default function AddProductsForm() {
-  const router = useRouter();
+  
 
   // Image states
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -95,8 +94,9 @@ export default function AddProductsForm() {
         ]);
         setCategories(catRes?.data || []);
         setBrands(brandRes?.data || []);
-      } catch (err) {
+      } catch (error) {
         toast.error("Failed to load categories or brands");
+        console.log(error)
       }
     }
     loadData();
@@ -178,7 +178,9 @@ export default function AddProductsForm() {
       } else {
         toast.error(res?.message );
       }
-    } catch (error) {}
+    } catch (error) {
+        console.log(error)
+    }
   };
 
   return (

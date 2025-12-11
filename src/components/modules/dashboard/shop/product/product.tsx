@@ -53,9 +53,7 @@ const Product = ({ productData }: { productData: IProduct[] }) => {
     {
       header: "Category",
       cell: ({ row }) => (
-        <Badge variant="secondary" className="text-xs">
-          {row.original.category.name}
-        </Badge>
+        <Badge className="text-xs">{row.original.category.name}</Badge>
       ),
     },
 
