@@ -1,5 +1,4 @@
 import Hero from "@/src/components/modules/home/heroSection";
-import Image from "next/image";
 
 export default async function Home() {
   return (
