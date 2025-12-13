@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { WatchDemo } from "@/components/ui/core/watchDemo";
 
 export default function Hero() {
   const features = [
@@ -81,9 +82,9 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-zinc-950 dark:via-slate-900 dark:to-indigo-950">
       {/* Enhanced animated background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-400/20 via-green-400/20 to-transparent dark:from-purple-600/10 dark:via-blue-600/10 rounded-full blur-3xl animate-blob" />
-        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-400/20 via-green-400/20 to-transparent dark:from-indigo-600/10 dark:via-cyan-600/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-r from-violet-400/10 via-fuchsia-400/10 to-transparent dark:from-violet-600/5 dark:via-fuchsia-600/5 rounded-full blur-3xl animate-blob animation-delay-4000" />
+        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-400/20 via-green-400/20 to-transparent dark:from-zinc-600/10 dark:via-zinc-600/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-400/20 via-green-400/20 to-transparent dark:from-zinc-600/10 dark:via-zinc-600/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-r from-zinc-400/10 via-fuchsia-400/10 to-transparent dark:from-zinc-600/5 dark:via-zinc-600/5 rounded-full blur-3xl animate-blob animation-delay-4000" />
 
         {/* Grid dots pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(#8882_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_40%,transparent_100%)]" />
@@ -131,20 +132,8 @@ export default function Hero() {
                 Start Free Trial
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <svg
-                  className="w-4 h-4 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                Watch Demo
-              </Button>
+
+              <WatchDemo />
             </div>
 
             {/* Enhanced Features Grid */}
@@ -310,22 +299,24 @@ export default function Hero() {
           <p className="text-sm text-slate-600 dark:text-slate-400 text-center mb-6">
             Trusted by innovative teams worldwide
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-8 items-center justify-center opacity-60">
-            {[
-              "TechCorp",
-              "Innovate Inc",
-              "Digital Solutions",
-              "CloudNine",
-              "Future Labs",
-              "Nexus AI",
-            ].map((company, index) => (
-              <div key={index} className="text-center">
-                <div className="text-xl font-bold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
-                  {company}
+          <marquee>
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-8 items-center justify-center opacity-60">
+              {[
+                "TechCorp",
+                "Innovate Inc",
+                "Digital Solutions",
+                "CloudNine",
+                "Future Labs",
+                "Nexus AI",
+              ].map((company, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-xl font-bold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+                    {company}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </marquee>
         </div>
       </div>
 
