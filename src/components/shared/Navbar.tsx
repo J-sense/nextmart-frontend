@@ -18,6 +18,7 @@ import { Profile } from "./profile";
 import { logOut } from "@/src/services/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedRoutes } from "@/src/constants";
+import { ModeToggle } from "@/components/ui/core/imageUpload/modeToggle";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,6 +67,7 @@ export default function Navbar() {
           <div className="shrink-0">
             <Logo />
           </div>
+          <ModeToggle />
 
           <div className="hidden md:flex flex-1 justify-center items-center space-x-6">
             {/* Category Dropdown */}
