@@ -24,19 +24,20 @@ export const userLogin = async (data: any) => {
       `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+        headers:{
+          "Content-Type" : "application/json"
         },
         body: JSON.stringify(data),
       }
     );
+    console.log(response)
     const result = await response.json();
     if (result?.success) {
       (await cookies()).set("accessToken", result?.data?.accessToken, {});
     }
     return result;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 export const logOut = async () => {
@@ -44,7 +45,7 @@ export const logOut = async () => {
 };
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
- 
+
   let decodeUser = null;
   if (accessToken) {
     decodeUser = await jwtDecode(accessToken);

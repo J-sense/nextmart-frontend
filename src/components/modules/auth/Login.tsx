@@ -5,13 +5,14 @@ import { Form } from "@/components/ui/form";
 import FormInput from "@/components/ui/FormInput";
 import Logo from "@/components/ui/logo";
 import { userLogin } from "@/src/services/auth";
-import { LucideFacebook } from "lucide-react";
+// import { LucideFacebook } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContext } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { userContext } from "../../context/UserContext";
+import { ScanFace } from "lucide-react";
 
 export default function Login() {
   const form = useForm();
@@ -25,8 +26,10 @@ export default function Login() {
   const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
+      console.log(data)
       const response = await userLogin(data);
-      if (response.success) {
+      console.log(response)
+      if (response?.success) {
         toast.success(response?.message);
         setIsLoading(true);
         if (redirectPath) {
@@ -35,7 +38,7 @@ export default function Login() {
           router.push("/");
         }
       } else {
-        toast.error(response?.message);
+        // toast.error(response?.message);
       }
     } catch (error) {
       console.log(error);
@@ -188,7 +191,7 @@ export default function Login() {
                   type="button"
                   className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  <LucideFacebook />
+                  <ScanFace />
                   <span className="ml-2 text-sm font-medium text-gray-700">
                     Facebook
                   </span>

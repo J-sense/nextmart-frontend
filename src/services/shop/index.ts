@@ -1,6 +1,6 @@
 "use server";
 
-import { cacheTag, revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const shopCreate = async (data: FormData) => {
@@ -141,12 +141,26 @@ export const createProduct = async (data: FormData) => {
   }
 };
 export const getProducts = async () => {
-  "use cache";
-  cacheTag("products");
+
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/product`);
     return response.json();
   } catch (error) {
     console.log(error);
+  }
+};
+export const getAllCategorys = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
+      {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    console.error(error);
   }
 };

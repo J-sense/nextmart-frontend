@@ -5,7 +5,6 @@ import { Toaster } from "sonner";
 import Providers from "@/src/components/providers/Providers";
 import { ThemeProvider } from "next-themes";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,6 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         data-new-gr-c-s-check-loaded="14.1264.0"
         data-gr-ext-installed=""
+        suppressHydrationWarning={true}
       >
         <ThemeProvider
           attribute="class"

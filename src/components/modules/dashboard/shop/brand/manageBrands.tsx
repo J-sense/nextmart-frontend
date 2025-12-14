@@ -36,9 +36,9 @@ export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
             width={40}
             height={40}
             alt={row.original.name}
-            className="w-10 h-10 rounded-full object-cover border"
+            className="w-10 h-10 rounded-full object-cover border border-gray-700"
           />
-          <span className="font-medium">{row.original.name}</span>
+          <span className="font-medium text-gray-200">{row.original.name}</span>
         </div>
       ),
     },
@@ -52,11 +52,11 @@ export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
         return (
           <div
             className={`
-            px-3 py-1.5 rounded-full  w-24 text-xs font-medium text-center
+            px-3 py-1.5 rounded-full w-24 text-xs font-medium text-center border
             ${
               isActive
-                ? "bg-green-100 text-green-800 border border-green-300"
-                : "bg-red-100 text-red-800 border border-red-300"
+                ? "bg-green-900/30 text-green-400 border-green-800"
+                : "bg-red-900/30 text-red-400 border-red-800"
             }
           `}
           >
@@ -80,8 +80,7 @@ export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
 
             if (res.success) {
               toast.success(`"${category.name}" deleted successfully`);
-              setOpen(false); // Close dialog on success
-              // Table will auto-refresh because deleteCategory uses revalidateTag("categories")
+              setOpen(false);
             } else {
               toast.error(res.error || "Failed to delete");
             }
@@ -98,7 +97,7 @@ export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
               variant="ghost"
               size="icon"
               onClick={() => setOpen(true)}
-              className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="h-8 w-8 text-red-400 hover:text-red-300 hover:bg-red-900/20 border border-gray-800"
             >
               <Trash2 className="h-4 w-4" />
               <span className="sr-only">Delete {category.name}</span>
@@ -119,15 +118,21 @@ export const ManageBrand = ({ categoryData }: { categoryData: Brand[] }) => {
   ];
 
   return (
-    <>
-      <div className="flex justify-between p-6">
-        <h2 className="text-xl font-semibold">Manage Brand</h2>
+    <div className=" min-h-screen p-6">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-100">Manage Brand</h2>
+          <p className="text-sm text-gray-400 mt-1">
+            {categoryData.length} brands found
+          </p>
+        </div>
         <BrandModal />
       </div>
-      <div className="px-6 py-4">
+      
+      <div className="border border-gray-800 rounded-lg overflow-hidden">
         <DataTable columns={columns} data={categoryData} />
       </div>
-    </>
+    </div>
   );
 };
 export default ManageBrand;

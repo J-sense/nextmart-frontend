@@ -79,10 +79,10 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-zinc-950 dark:via-slate-900 dark:to-indigo-950">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-zinc-950 dark:via-slate-900 dark:to-indigo-950">
       {/* Enhanced animated background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-400/20 via-green-400/20 to-transparent dark:from-zinc-600/10 dark:via-zinc-600/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-linear-to-br from-green-400/20 via-green-400/20 to-transparent dark:from-zinc-600/10 dark:via-zinc-600/10 rounded-full blur-3xl animate-blob" />
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-400/20 via-green-400/20 to-transparent dark:from-zinc-600/10 dark:via-zinc-600/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-r from-zinc-400/10 via-fuchsia-400/10 to-transparent dark:from-zinc-600/5 dark:via-zinc-600/5 rounded-full blur-3xl animate-blob animation-delay-4000" />
 
@@ -142,7 +142,7 @@ export default function Hero() {
                 <div key={index} className="group">
                   <div className="relative p-4 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:-translate-y-1">
                     <div
-                      className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg mb-3`}
+                      className={`w-10 h-10 rounded-lg bg-linear-to-br ${feature.color} flex items-center justify-center shadow-lg mb-3`}
                     >
                       <feature.icon className="w-5 h-5 text-white" />
                     </div>
@@ -164,9 +164,9 @@ export default function Hero() {
           {/* Right content - Enhanced Feature Grid */}
           <div className="relative h-[600px] hidden lg:block animate-fade-in-up animation-delay-200">
             {/* Main Card */}
-            <Card className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md transform hover:scale-[1.02] transition-all duration-500 shadow-2xl border-0 bg-gradient-to-br from-white/90 to-slate-50/90 dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-sm">
+            <Card className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md transform hover:scale-[1.02] transition-all duration-500 shadow-2xl border-0 bg-linear-to-br from-white/90 to-slate-50/90 dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-sm">
               <CardContent className="p-8">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-xl mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-xl mb-6">
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
@@ -277,7 +277,7 @@ export default function Hero() {
                 <Card className="w-56 transform hover:scale-105 transition-all duration-300 shadow-xl border-0 backdrop-blur-sm bg-white/80 dark:bg-slate-900/80">
                   <CardContent className="p-4">
                     <div
-                      className={`w-10 h-10 rounded-lg bg-gradient-to-br ${card.color} flex items-center justify-center shadow-lg mb-3`}
+                      className={`w-10 h-10 rounded-lg bg-linear-to-br ${card.color} flex items-center justify-center shadow-lg mb-3`}
                     >
                       <card.icon className="w-5 h-5 text-white" />
                     </div>
