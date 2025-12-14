@@ -153,11 +153,7 @@ export const getAllCategorys = async () => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
-      {
-        headers: {
-          Authorization: (await cookies()).get("accessToken")!.value,
-        },
-      }
+     
     );
     return response.json();
   } catch (error) {

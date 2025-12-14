@@ -1,4 +1,3 @@
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -46,8 +45,9 @@ export default function mainLayout({
               </Breadcrumb>
             </div>
           </header>
-          
-        {children}
+          <main className="dark:from-gray-950 dark:via-gray-900 dark:to-black min-h-screen">
+            {children}
+          </main>
         </SidebarInset>
       </SidebarProvider>
     </>

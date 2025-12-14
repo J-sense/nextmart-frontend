@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DataTable } from "@/components/ui/core/imageUpload/data-table";
 import {
   Tooltip,
@@ -10,13 +11,56 @@ import {
 } from "@/components/ui/tooltip";
 import { IProduct } from "@/src/types/product";
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge, Hash, Package, Plus, Scale, Trash2, Eye, Edit } from "lucide-react";
+import {
+  Badge,
+  Hash,
+  Package,
+  Plus,
+  Scale,
+  Trash2,
+  Eye,
+  Edit,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const Product = ({ productData }: { productData: IProduct[] }) => {
   console.log(productData);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  console.log(selectedIds)
   const columns: ColumnDef<IProduct>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => {
+            if (value) {
+              setSelectedIds((prev) => [...prev, row.original._id]);
+            } else {
+              setSelectedIds((prev) =>
+                prev.filter((id) => id !== row.original._id)
+              );
+            }
+            row.toggleSelected(!!value);
+          }}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       header: "Product",
       cell: ({ row }) => {
@@ -195,7 +239,7 @@ const Product = ({ productData }: { productData: IProduct[] }) => {
   ];
 
   return (
-    <div className="space-y-8 p-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black min-h-screen">
+    <div className="space-y-8 p-8 bg-gradient-to-br dark:from-gray-950 dark:via-gray-900 dark:to-black min-h-screen">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -206,7 +250,7 @@ const Product = ({ productData }: { productData: IProduct[] }) => {
         </div>
 
         <Link href="/user/shop/add-product">
-          <Button className="font-medium bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-gray-100 border border-gray-800 hover:shadow-lg hover:shadow-gray-900/50 transition-all duration-300">
+          <Button className="">
             <Plus className="w-4 h-4 mr-2" />
             Add Product
           </Button>
@@ -216,19 +260,46 @@ const Product = ({ productData }: { productData: IProduct[] }) => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { title: "Total Products", value: productData.length, icon: Package, color: "from-gray-800 to-gray-900" },
-          { title: "In Stock", value: productData.filter(p => p.stock > 0).length, icon: Package, color: "from-green-900/30 to-green-800/30" },
-          { title: "Out of Stock", value: productData.filter(p => p.stock === 0).length, icon: Package, color: "from-red-900/30 to-red-800/30" },
-          { title: "Active", value: productData.filter(p => p.isActive).length, icon: Package, color: "from-blue-900/30 to-blue-800/30" },
+          {
+            title: "Total Products",
+            value: productData.length,
+            icon: Package,
+            color: "from-gray-800 to-gray-900",
+          },
+          {
+            title: "In Stock",
+            value: productData.filter((p) => p.stock > 0).length,
+            icon: Package,
+            color: "from-green-900/30 to-green-800/30",
+          },
+          {
+            title: "Out of Stock",
+            value: productData.filter((p) => p.stock === 0).length,
+            icon: Package,
+            color: "from-red-900/30 to-red-800/30",
+          },
+          {
+            title: "Active",
+            value: productData.filter((p) => p.isActive).length,
+            icon: Package,
+            color: "from-blue-900/30 to-blue-800/30",
+          },
         ].map((stat, index) => (
-          <Card key={index} className="bg-gradient-to-br from-gray-900 to-gray-950 border-gray-800 shadow-xl">
+          <Card
+            key={index}
+            className="bg-gradient-to-br from-gray-900 to-gray-950 border-gray-800 shadow-xl"
+          >
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-400">{stat.title}</p>
-                  <p className="text-2xl font-bold text-gray-100 mt-2">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-100 mt-2">
+                    {stat.value}
+                  </p>
                 </div>
-                <div className={`p-3 rounded-lg bg-gradient-to-br ${stat.color}`}>
+                <div
+                  className={`p-3 rounded-lg bg-gradient-to-br ${stat.color}`}
+                >
                   <stat.icon className="h-6 w-6 text-gray-300" />
                 </div>
               </div>
@@ -254,64 +325,10 @@ const Product = ({ productData }: { productData: IProduct[] }) => {
 
         <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <DataTable 
-              columns={columns} 
-              data={productData}
-           
-            />
+            <DataTable columns={columns} data={productData} />
           </div>
-
-          {/* Empty State */}
-          {productData.length === 0 && (
-            <div className="py-16 text-center border-t border-gray-800">
-              <div className="text-gray-600 mb-6">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                  <Package className="w-10 h-10" />
-                </div>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-200 mb-2">
-                No products found
-              </h3>
-              <p className="text-gray-400 mb-6 max-w-md mx-auto">
-                Start building your product catalog by adding your first item
-              </p>
-              <Link href="/user/shop/add-product">
-                <Button className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-gray-100 border border-gray-700">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add First Product
-                </Button>
-              </Link>
-            </div>
-          )}
         </CardContent>
       </Card>
-
-      {/* Quick Actions */}
-      {productData.length > 0 && (
-        <div className="flex flex-wrap gap-4 justify-center pt-4">
-          <Button 
-            variant="outline" 
-            className="border-gray-800 text-gray-400 hover:text-gray-200 hover:bg-gray-900"
-          >
-            <Package className="w-4 h-4 mr-2" />
-            Export Products
-          </Button>
-          <Button 
-            variant="outline" 
-            className="border-gray-800 text-gray-400 hover:text-gray-200 hover:bg-gray-900"
-          >
-            <Scale className="w-4 h-4 mr-2" />
-            Bulk Update
-          </Button>
-          <Button 
-            variant="outline" 
-            className="border-gray-800 text-gray-400 hover:text-gray-200 hover:bg-gray-900"
-          >
-            <Trash2 className="w-4 h-4 mr-2" />
-            Bulk Delete
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
